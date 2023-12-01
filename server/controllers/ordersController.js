@@ -21,7 +21,7 @@ const createOrder = async (req, res) => {
   }
 };
 
-const getOrder = async (req, res) => {
+const getOrders = async (req, res) => {
   try {
     const orders = await Order.find().sort("order_id");
     //   res.send(orders);
@@ -60,9 +60,21 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const getOrdersByStatus = async (status) => {
+  try {
+    const orders = await Order.find({ status: status });
+    //   res.send(orders);
+    return orders;
+  } catch (err) {
+    //   res.status(400).send(err.errors);
+    return err.errors;
+  }
+};
+
 module.exports = {
-  getOrder,
+  getOrders,
   updateOrder,
   createOrder,
   deleteOrder,
+  getOrdersByStatus,
 };
